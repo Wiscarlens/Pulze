@@ -1,15 +1,19 @@
-// QuizScreen.tsx
 
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Card, Button } from 'react-native-elements';
-import { ProgressBar } from 'react-native-paper';
+import QuestionCard from '../components/QuestionCard';
 
 const QuizScreen = () => {
   const questions = [
     {
-      question: 'What is the capital of France?',
-      choices: ['Paris', 'Berlin', 'London', 'Madrid'],
+      question: 'If your engine dies as you driving on a curve, you should?',
+      choices: [
+        'Try to start the engine on the road', 
+        'Pull over to the right side of the road', 
+        'Hold your streering wheel tightly and keep your vehicle going straight', 
+        'Ease off the gas Pedal'
+      ],
     },
     {
       question: 'What is the capital of Germany?',
@@ -38,30 +42,30 @@ const QuizScreen = () => {
 
   return (
     <View style={styles.container}>
-      {/* Progress Bar */}
       <View style={styles.progressBarContainer}>
-        {/* Close Icon */}
         <View style={styles.closeCard}>
           <TouchableOpacity style={styles.closeButton} onPress={handleClose}>
             <Text>X</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.progressCard}>
-          <ProgressBar
-            progress={(currentQuestionIndex + 1) / questions.length}
-            color="#D94B3A"
-            style={styles.progressBar}
-          />
+       
+          {/* Progress Bar space */}
         </View>
       </View>
+      
+        <QuestionCard
+            title={questions[currentQuestionIndex].question}
+          />
+
 
       {/* Question Card */}
-      <Card containerStyle={styles.cardContainer}>
+      {/* <Card containerStyle={styles.cardContainer}>
         <Card.Title>{questions[currentQuestionIndex].question}</Card.Title>
         {questions[currentQuestionIndex].choices.map((choice, index) => (
           <Button key={index} title={choice} type="outline" />
         ))}
-      </Card>
+      </Card> */}
 
       {/* Navigation Buttons */}
       <View style={styles.navigationButtons}>
