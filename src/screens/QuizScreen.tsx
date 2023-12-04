@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Card, Button } from 'react-native-elements';
 import QuestionCard from '../components/QuestionCard';
+import AnswerCard from '../components/AnswerCard';
 
 const QuizScreen = () => {
   const questions = [
@@ -56,6 +57,11 @@ const QuizScreen = () => {
       
         <QuestionCard
             title={questions[currentQuestionIndex].question}
+        />
+
+        <AnswerCard
+              answer='Ease off the gas Pedal'
+              checkIcon={false}
           />
 
 
