@@ -20,15 +20,14 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ imageSource, title: questio
 const styles = StyleSheet.create({
   card: {
     width: '100%',
-    height: 220,
+    height: 200,
     borderRadius: 10,
     backgroundColor: '#dcf8ff',
-    elevation: 3,
     shadowColor: 'black',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 2,
-    marginTop: 20,
+    marginTop: 40,
     justifyContent: 'center',
     alignItems: 'center',
   },

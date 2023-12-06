@@ -1,45 +1,62 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import CheckIcon from 'react-native-vector-icons/FontAwesome';
+import CheckIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 interface AnswerCardProps {
   answer: string;
-  checkIcon?: boolean;
+  checkIcon?: boolean | null;
 }
 
-// const AnswerCard: React.FC<AnswerCardProps> = ({ answer, checkIcon = false}) => {
-//   return (
-//     <View style={styles.card}>
-//       <View style={styles.textContainer}>
-//         <Text style={styles.answer}>{answer}</Text>
-//       </View>
-//       {checkIcon && (
-//         <View style={styles.checkIcon}>
-//           <CheckIcon
-//             style={styles.icon}
-//             name={checkIcon ? 'checkcircle' : 'circle-o'}
-//             size={20}
-//             color={'#3eb8d4'}
-//           />
-//         </View>
-//       )}
-//     </View>
-//   );
-// };
-
-const AnswerCard: React.FC<AnswerCardProps> = ({ answer, checkIcon = false }) => {
+const AnswerCard: React.FC<AnswerCardProps> = ({ answer, checkIcon }) => {
   return (
-    <View style={styles.card}>
+    <View
+      style={[
+        styles.card,
+        {
+          borderColor:
+            checkIcon === true ? '#3eb8d4' : checkIcon === false ? 'red' : '#F0F0F0', // Dynamic border color
+          backgroundColor:
+            checkIcon === true ? '#dcf8ff' : checkIcon === false ? 'mistyrose' : 'white', // Dynamic background color
+        },
+      ]}
+    >
       <View style={styles.textContainer}>
-        <Text style={styles.answer}>{answer}</Text>
+        <Text
+          style={[
+            styles.answer,
+            {
+              color:
+                checkIcon === true
+                  ? '#3eb8d4' // Dynamic text color when boolean is true
+                  : checkIcon === false
+                  ? 'red' // Dynamic text color when boolean is false
+                  : 'gray', // Default text color when checkIcon is null or undefined
+            },
+          ]}
+        >
+          {answer}
+        </Text>
       </View>
       {checkIcon !== undefined && (
         <View style={styles.checkIcon}>
           <CheckIcon
             style={styles.icon}
-            name={checkIcon ? 'checkcircle' : 'circleo'} // Default to 'circleo' if checkIcon is not provided
+            name={
+              checkIcon
+                ? 'check-circle' // Check-circle when boolean is true
+                : checkIcon === false
+                ? 'close-circle' // Checkbox-blank-circle-outline when boolean is false
+                : 'checkbox-blank-circle-outline' // Default to 'checkbox-blank-circle-outline' if checkIcon is null or undefined
+            }
             size={20}
-            color={'#3eb8d4'}
+            color={
+              checkIcon
+                ? '#3eb8d4' // #3eb8d4 when boolean is true
+                : checkIcon === false
+                ? 'red' // red when boolean is false
+                : '#F0F0F0' // Default to 'gray' if checkIcon is null or undefined
+                
+            }
           />
         </View>
       )}
@@ -50,11 +67,9 @@ const AnswerCard: React.FC<AnswerCardProps> = ({ answer, checkIcon = false }) =>
 const styles = StyleSheet.create({
   card: {
     width: '100%',
-    height: 60,
+    height: 50,
     flexDirection: 'row',
-    borderRadius: 10,
-    backgroundColor: '#dcf8ff',
-    elevation: 3,
+    borderRadius: 15,
     shadowColor: 'black',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
@@ -64,14 +79,12 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#3eb8d4',
   },
   textContainer: {
     flex: 1,
   },
   answer: {
-    color: '#3eb8d4',
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: 'bold',
   },
   checkIcon: {

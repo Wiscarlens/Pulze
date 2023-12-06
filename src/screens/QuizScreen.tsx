@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Card, Button } from 'react-native-elements';
 import QuestionCard from '../components/QuestionCard';
 import AnswerCard from '../components/AnswerCard';
+import { ProgressBar } from 'react-native-paper';
 
 const QuizScreen = () => {
   const questions = [
@@ -50,8 +51,17 @@ const QuizScreen = () => {
           </TouchableOpacity>
         </View>
         <View style={styles.progressCard}>
-       
           {/* Progress Bar space */}
+          <View>
+            <ProgressBar
+              progress={0.1}
+              color="#D94B3A"
+              style={styles.progressBar}
+            />
+          </View>
+          <View>
+            <Text style={styles.progressText}>1/10</Text>
+          </View>
         </View>
       </View>
       
@@ -59,25 +69,26 @@ const QuizScreen = () => {
             title={questions[currentQuestionIndex].question}
         />
 
-        <AnswerCard
-              answer='Ease off the gas Pedal'
-              checkIcon={false}
-          />
-
-
-      {/* Question Card */}
-      {/* <Card containerStyle={styles.cardContainer}>
-        <Card.Title>{questions[currentQuestionIndex].question}</Card.Title>
         {questions[currentQuestionIndex].choices.map((choice, index) => (
-          <Button key={index} title={choice} type="outline" />
+          <AnswerCard
+              key={index}
+              answer={choice}
+              checkIcon={null}
+          />
         ))}
-      </Card> */}
 
       {/* Navigation Buttons */}
-      <View style={styles.navigationButtons}>
+      {/* <View style={styles.navigationButtons}>
         <Button title="Previous" onPress={handlePrevious} />
         <Button title="Next" onPress={handleNext} />
-      </View>
+      </View> */}
+
+      <TouchableOpacity
+        style={styles.button}
+        onPress={handleNext}
+      >
+        <Text style={styles.buttonText}>NEXT</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -95,7 +106,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   progressBar: {
-    flex: 1,
+   
   },
   closeButton: {
     position: 'absolute',
@@ -132,9 +143,30 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 2,
     marginTop: 15,
-    padding: 10,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'flex-end',
+    
+  },
+  progressText: {
+    fontSize: 11,
+    fontWeight: 'bold',
+    color: '#D94B3A',
+    marginEnd: 15,
+
+  },
+  button: {
+    backgroundColor: '#D94B3A',
+    width: '100%',
+    height: 50,
+    borderRadius: 15,
+    marginTop: 40,
+    justifyContent: 'center',
+    alignItems: 'center', 
+  
+  },
+  buttonText: {
+    color: 'white',
+   fontWeight: 'bold' 
   },
 });
 
