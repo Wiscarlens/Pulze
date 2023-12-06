@@ -1,10 +1,9 @@
-
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { Card, Button } from 'react-native-elements';
+
 import QuestionCard from '../components/QuestionCard';
 import AnswerCard from '../components/AnswerCard';
-import { ProgressBar } from 'react-native-paper';
+import ProgressCard from '../components/ProgressCard';
 
 const QuizScreen = () => {
   const questions = [
@@ -38,6 +37,12 @@ const QuizScreen = () => {
     }
   };
 
+  const handleAnswerPress = (index : number) => {
+    // Implement your logic to check if the answer is correct or wrong
+    console.log('Answer clicked for question index:', index);
+  };
+
+
   const handleClose = () => {
     // Handle closing the quiz (navigate back or perform any necessary action)
   };
@@ -49,20 +54,12 @@ const QuizScreen = () => {
           <TouchableOpacity style={styles.closeButton} onPress={handleClose}>
             <Text>X</Text>
           </TouchableOpacity>
-        </View>
-        <View style={styles.progressCard}>
-          {/* Progress Bar space */}
-          <View>
-            <ProgressBar
-              progress={0.1}
-              color="#D94B3A"
-              style={styles.progressBar}
-            />
-          </View>
-          <View>
-            <Text style={styles.progressText}>1/10</Text>
-          </View>
-        </View>
+        </View >
+
+        <ProgressCard
+          questionsLength={questions.length}
+          currentQuestionIndex={currentQuestionIndex}
+        />
       </View>
       
         <QuestionCard
@@ -74,14 +71,9 @@ const QuizScreen = () => {
               key={index}
               answer={choice}
               checkIcon={null}
+              onPress={() => handleAnswerPress(index)}
           />
         ))}
-
-      {/* Navigation Buttons */}
-      {/* <View style={styles.navigationButtons}>
-        <Button title="Previous" onPress={handlePrevious} />
-        <Button title="Next" onPress={handleNext} />
-      </View> */}
 
       <TouchableOpacity
         style={styles.button}
@@ -106,6 +98,9 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   progressBar: {
+    height: 8,
+    borderRadius: 10,
+    width: '70%',
    
   },
   closeButton: {
@@ -115,9 +110,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: 20,
-  },
-  cardContainer: {
-    // Add any additional styling for the card container if needed
   },
   closeCard: {
     height: 25,
@@ -134,18 +126,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   progressCard: {
-    height: 25,
+    height: 70,
     width: '90%',
     borderRadius: 10,
     backgroundColor: 'white',
     shadowColor: 'black',
-    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 2,
     marginTop: 15,
     justifyContent: 'center',
-    alignItems: 'flex-end',
-    
   },
   progressText: {
     fontSize: 11,
@@ -154,14 +143,17 @@ const styles = StyleSheet.create({
     marginEnd: 15,
 
   },
+  currentQuestion: {
+      
+  },
   button: {
     backgroundColor: '#D94B3A',
     width: '100%',
     height: 50,
     borderRadius: 15,
     marginTop: 40,
-    justifyContent: 'center',
     alignItems: 'center', 
+    justifyContent: 'center',
   
   },
   buttonText: {
@@ -171,3 +163,6 @@ const styles = StyleSheet.create({
 });
 
 export default QuizScreen;
+
+
+

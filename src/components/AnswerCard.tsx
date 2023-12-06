@@ -1,15 +1,22 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity  } from 'react-native';
 import CheckIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 interface AnswerCardProps {
   answer: string;
   checkIcon?: boolean | null;
+  onPress?: () => void;
 }
 
-const AnswerCard: React.FC<AnswerCardProps> = ({ answer, checkIcon }) => {
+const AnswerCard: React.FC<AnswerCardProps> = ({ answer, checkIcon, onPress }) => {
+  const handlePress = () => {
+    if (onPress) {
+      onPress();
+    }
+  };
+
   return (
-    <View
+    <TouchableOpacity onPress={handlePress}
       style={[
         styles.card,
         {
@@ -60,7 +67,7 @@ const AnswerCard: React.FC<AnswerCardProps> = ({ answer, checkIcon }) => {
           />
         </View>
       )}
-    </View>
+    </TouchableOpacity>
   );
 };
 
