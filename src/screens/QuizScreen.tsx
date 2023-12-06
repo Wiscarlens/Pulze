@@ -10,15 +10,17 @@ const QuizScreen = () => {
     {
       question: 'If your engine dies as you driving on a curve, you should?',
       choices: [
-        'Try to start the engine on the road', 
-        'Pull over to the right side of the road', 
-        'Hold your streering wheel tightly and keep your vehicle going straight', 
-        'Ease off the gas Pedal'
+        'Try to start the engine on the road',
+        'Pull over to the right side of the road',
+        'Hold your steering wheel tightly and keep your vehicle going straight',
+        'Ease off the gas Pedal',
       ],
+      correctAnswerIndex: 2, // Index of the correct answer in the choices array
     },
     {
       question: 'What is the capital of Germany?',
-      choices: ['New York', 'Berlin', 'Mexico', 'Brazilia'],
+      choices: ['New York', 'Berlin', 'Mexico', 'Brasilia'],
+      correctAnswerIndex: 1, // Index of the correct answer in the choices array
     },
     // Add more questions as needed
   ];
@@ -37,9 +39,15 @@ const QuizScreen = () => {
     }
   };
 
-  const handleAnswerPress = (index : number) => {
-    // Implement your logic to check if the answer is correct or wrong
-    console.log('Answer clicked for question index:', index);
+  const handleAnswerPress = (selectedAnswerIndex: number) => {
+    const isCorrect = selectedAnswerIndex === questions[currentQuestionIndex].correctAnswerIndex;
+
+    // Log whether the selected answer is correct or wrong
+    if (isCorrect) {
+      console.log('Correct Answer!');
+    } else {
+      console.log('Wrong Answer!');
+    }
   };
 
 
@@ -163,6 +171,5 @@ const styles = StyleSheet.create({
 });
 
 export default QuizScreen;
-
 
 
