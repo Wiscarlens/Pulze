@@ -15,11 +15,16 @@ const QuizScreen = () => {
         'Hold your steering wheel tightly and keep your vehicle going straight',
         'Ease off the gas Pedal',
       ],
-      correctAnswerIndex: 2, // Index of the correct answer in the choices array
+      correctAnswerIndex: 3, // Index of the correct answer in the choices array
     },
     {
       question: 'What is the capital of Germany?',
-      choices: ['New York', 'Berlin', 'Mexico', 'Brasilia'],
+      choices: [
+        'New York', 
+        'Berlin', 
+        'Mexico', 
+        'Brasilia'
+      ],
       correctAnswerIndex: 1, // Index of the correct answer in the choices array
     },
     // Add more questions as needed
@@ -78,7 +83,7 @@ const QuizScreen = () => {
           <AnswerCard
               key={index}
               answer={choice}
-              checkIcon={null}
+              checkIcon={index === currentQuestionIndex ? true : false}
               onPress={() => handleAnswerPress(index)}
           />
         ))}

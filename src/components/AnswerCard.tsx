@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity  } from 'react-native';
 import CheckIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -9,9 +9,15 @@ interface AnswerCardProps {
 }
 
 const AnswerCard: React.FC<AnswerCardProps> = ({ answer, checkIcon, onPress }) => {
+  const [checkAnswer, setCheckAnswer] = useState<boolean | null>(null);
+
+
   const handlePress = () => {
     if (onPress) {
+      
       onPress();
+      setCheckAnswer(checkIcon || false);
+
     }
   };
 
@@ -21,9 +27,9 @@ const AnswerCard: React.FC<AnswerCardProps> = ({ answer, checkIcon, onPress }) =
         styles.card,
         {
           borderColor:
-            checkIcon === true ? '#3eb8d4' : checkIcon === false ? 'red' : '#F0F0F0', // Dynamic border color
+            checkAnswer === true ? '#3eb8d4' : checkAnswer === false ? 'red' : '#F0F0F0', // Dynamic border color
           backgroundColor:
-            checkIcon === true ? '#dcf8ff' : checkIcon === false ? 'mistyrose' : 'white', // Dynamic background color
+            checkAnswer === true ? '#dcf8ff' : checkAnswer === false ? 'mistyrose' : 'white', // Dynamic background color
         },
       ]}
     >
@@ -33,9 +39,9 @@ const AnswerCard: React.FC<AnswerCardProps> = ({ answer, checkIcon, onPress }) =
             styles.answer,
             {
               color:
-                checkIcon === true
+                checkAnswer === true
                   ? '#3eb8d4' // Dynamic text color when boolean is true
-                  : checkIcon === false
+                  : checkAnswer === false
                   ? 'red' // Dynamic text color when boolean is false
                   : 'gray', // Default text color when checkIcon is null or undefined
             },
@@ -44,22 +50,22 @@ const AnswerCard: React.FC<AnswerCardProps> = ({ answer, checkIcon, onPress }) =
           {answer}
         </Text>
       </View>
-      {checkIcon !== undefined && (
+      {checkAnswer !== undefined && (
         <View style={styles.checkIcon}>
           <CheckIcon
             style={styles.icon}
             name={
-              checkIcon
+              checkAnswer
                 ? 'check-circle' // Check-circle when boolean is true
-                : checkIcon === false
+                : checkAnswer === false
                 ? 'close-circle' // Checkbox-blank-circle-outline when boolean is false
                 : 'checkbox-blank-circle-outline' // Default to 'checkbox-blank-circle-outline' if checkIcon is null or undefined
             }
             size={20}
             color={
-              checkIcon
+              checkAnswer
                 ? '#3eb8d4' // #3eb8d4 when boolean is true
-                : checkIcon === false
+                : checkAnswer === false
                 ? 'red' // red when boolean is false
                 : '#F0F0F0' // Default to 'gray' if checkIcon is null or undefined
                 
