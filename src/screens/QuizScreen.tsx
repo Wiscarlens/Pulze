@@ -79,14 +79,43 @@ const QuizScreen = () => {
             title={questions[currentQuestionIndex].question}
         />
 
-        {questions[currentQuestionIndex].choices.map((choice, index) => (
+        <AnswerCard
+          key={0}
+            answer={questions[currentQuestionIndex].choices[0]}
+            checkIcon={null}
+            onPress={() => handleAnswerPress(0)}
+        />
+
+        <AnswerCard
+          key={1}
+            answer={questions[currentQuestionIndex].choices[1]}
+            checkIcon={null}
+            onPress={() => handleAnswerPress(0)}
+        />
+
+        <AnswerCard
+          key={2}
+            answer={questions[currentQuestionIndex].choices[2]}
+            checkIcon={null}
+            onPress={() => handleAnswerPress(0)}
+        />
+
+        <AnswerCard
+          key={3}
+            answer={questions[currentQuestionIndex].choices[3]}
+            checkIcon={null}
+            onPress={() => handleAnswerPress(0)}
+        />
+        
+
+        {/* {questions[currentQuestionIndex].choices.map((choice, index) => (
           <AnswerCard
               key={index}
               answer={choice}
               checkIcon={index === currentQuestionIndex ? true : false}
               onPress={() => handleAnswerPress(index)}
           />
-        ))}
+        ))} */}
 
       <TouchableOpacity
         style={styles.button}
