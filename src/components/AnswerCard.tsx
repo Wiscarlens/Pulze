@@ -3,20 +3,20 @@ import { View, Text, StyleSheet, TouchableOpacity  } from 'react-native';
 import CheckIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 interface AnswerCardProps {
+  key: number;
   answer: string;
   checkIcon?: boolean | null;
   onPress?: () => void;
 }
 
-const AnswerCard: React.FC<AnswerCardProps> = ({ answer, checkIcon, onPress }) => {
-  const [checkAnswer, setCheckAnswer] = useState<boolean | null>(null);
+const AnswerCard: React.FC<AnswerCardProps> = ({ key, answer, checkIcon, onPress }) => {
+  // const [checkIcon, setCheckAnswer] = useState<boolean | null>(null);
 
 
   const handlePress = () => {
     if (onPress) {
       
       onPress();
-      setCheckAnswer(checkIcon || false);
 
     }
   };
@@ -27,9 +27,9 @@ const AnswerCard: React.FC<AnswerCardProps> = ({ answer, checkIcon, onPress }) =
         styles.card,
         {
           borderColor:
-            checkAnswer === true ? '#3eb8d4' : checkAnswer === false ? 'red' : '#F0F0F0', // Dynamic border color
+            checkIcon === true ? '#3eb8d4' : checkIcon === false ? 'red' : '#F0F0F0', // Dynamic border color
           backgroundColor:
-            checkAnswer === true ? '#dcf8ff' : checkAnswer === false ? 'mistyrose' : 'white', // Dynamic background color
+            checkIcon === true ? '#dcf8ff' : checkIcon === false ? 'mistyrose' : 'white', // Dynamic background color
         },
       ]}
     >
@@ -39,9 +39,9 @@ const AnswerCard: React.FC<AnswerCardProps> = ({ answer, checkIcon, onPress }) =
             styles.answer,
             {
               color:
-                checkAnswer === true
+                checkIcon === true
                   ? '#3eb8d4' // Dynamic text color when boolean is true
-                  : checkAnswer === false
+                  : checkIcon === false
                   ? 'red' // Dynamic text color when boolean is false
                   : 'gray', // Default text color when checkIcon is null or undefined
             },
@@ -50,22 +50,22 @@ const AnswerCard: React.FC<AnswerCardProps> = ({ answer, checkIcon, onPress }) =
           {answer}
         </Text>
       </View>
-      {checkAnswer !== undefined && (
+      {checkIcon !== undefined && (
         <View style={styles.checkIcon}>
           <CheckIcon
             style={styles.icon}
             name={
-              checkAnswer
+              checkIcon
                 ? 'check-circle' // Check-circle when boolean is true
-                : checkAnswer === false
+                : checkIcon === false
                 ? 'close-circle' // Checkbox-blank-circle-outline when boolean is false
                 : 'checkbox-blank-circle-outline' // Default to 'checkbox-blank-circle-outline' if checkIcon is null or undefined
             }
             size={20}
             color={
-              checkAnswer
+              checkIcon
                 ? '#3eb8d4' // #3eb8d4 when boolean is true
-                : checkAnswer === false
+                : checkIcon === false
                 ? 'red' // red when boolean is false
                 : '#F0F0F0' // Default to 'gray' if checkIcon is null or undefined
                 

@@ -31,6 +31,7 @@ const QuizScreen = () => {
   ];
 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [icon, setIcon] = useState<number | null>(null);
 
   const handleNext = () => {
     if (currentQuestionIndex < questions.length - 1) {
@@ -46,6 +47,11 @@ const QuizScreen = () => {
 
   const handleAnswerPress = (selectedAnswerIndex: number) => {
     const isCorrect = selectedAnswerIndex === questions[currentQuestionIndex].correctAnswerIndex;
+
+    let checkIconValue = null;
+
+    // Update checkIcon state based on correctness
+    setIcon(isCorrect ? selectedAnswerIndex : null);
 
     // Log whether the selected answer is correct or wrong
     if (isCorrect) {
@@ -79,33 +85,33 @@ const QuizScreen = () => {
             title={questions[currentQuestionIndex].question}
         />
 
-        <AnswerCard
-          key={0}
-            answer={questions[currentQuestionIndex].choices[0]}
-            checkIcon={null}
-            onPress={() => handleAnswerPress(0)}
-        />
+    <AnswerCard
+      key={0}
+      answer={questions[currentQuestionIndex].choices[0]}
+      checkIcon={icon === null ? null : icon === 0}
+      onPress={() => handleAnswerPress(0)}
+    />
 
-        <AnswerCard
-          key={1}
-            answer={questions[currentQuestionIndex].choices[1]}
-            checkIcon={null}
-            onPress={() => handleAnswerPress(0)}
-        />
+    <AnswerCard
+      key={1}
+      answer={questions[currentQuestionIndex].choices[1]}
+      checkIcon={icon === null ? null : icon === 1}
+      onPress={() => handleAnswerPress(1)}
+    />
 
-        <AnswerCard
-          key={2}
-            answer={questions[currentQuestionIndex].choices[2]}
-            checkIcon={null}
-            onPress={() => handleAnswerPress(0)}
-        />
+    <AnswerCard
+      key={2}
+      answer={questions[currentQuestionIndex].choices[2]}
+      checkIcon={icon === null ? null : icon === 2}
+      onPress={() => handleAnswerPress(2)}
+    />
 
-        <AnswerCard
-          key={3}
-            answer={questions[currentQuestionIndex].choices[3]}
-            checkIcon={null}
-            onPress={() => handleAnswerPress(0)}
-        />
+    <AnswerCard
+      key={3}
+      answer={questions[currentQuestionIndex].choices[3]}
+      checkIcon={icon === null ? null : icon === 3}
+      onPress={() => handleAnswerPress(3)}
+    />
         
 
         {/* {questions[currentQuestionIndex].choices.map((choice, index) => (
