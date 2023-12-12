@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+// import { useNavigation } from '@react-navigation/native';
 
 import QuestionCard from '../components/QuestionCard';
 import AnswerCard from '../components/AnswerCard';
 import ProgressCard from '../components/ProgressCard';
 
 const QuizScreen = () => {
+  // const navigation = useNavigation();
+
   const questions = [
     {
       question: 'If your engine dies as you driving on a curve, you should?',
@@ -31,11 +34,13 @@ const QuizScreen = () => {
   ];
 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [icon, setIcon] = useState<number | null>(null);
+  const [icon, setIcon] = useState<boolean | null>(null);
 
   const handleNext = () => {
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
+  
+      resetStateInAnswerCards();
     }
   };
 
@@ -48,11 +53,6 @@ const QuizScreen = () => {
   const handleAnswerPress = (selectedAnswerIndex: number) => {
     const isCorrect = selectedAnswerIndex === questions[currentQuestionIndex].correctAnswerIndex;
 
-    let checkIconValue = null;
-
-    // Update checkIcon state based on correctness
-    setIcon(isCorrect ? selectedAnswerIndex : null);
-
     // Log whether the selected answer is correct or wrong
     if (isCorrect) {
       console.log('Correct Answer!');
@@ -61,8 +61,13 @@ const QuizScreen = () => {
     }
   };
 
+  const resetStateInAnswerCards = () => {
+    setIcon(null); // Reset the state in parent component
+  };
+
 
   const handleClose = () => {
+    // navigation.goBack();
     // Handle closing the quiz (navigate back or perform any necessary action)
   };
 
@@ -85,43 +90,48 @@ const QuizScreen = () => {
             title={questions[currentQuestionIndex].question}
         />
 
-    <AnswerCard
+    {/* <AnswerCard
       key={0}
       answer={questions[currentQuestionIndex].choices[0]}
-      checkIcon={icon === null ? null : icon === 0}
+      isCorrect={ questions[currentQuestionIndex].correctAnswerIndex === 0 }
       onPress={() => handleAnswerPress(0)}
+      resetState={resetStateInAnswerCards} 
     />
 
     <AnswerCard
       key={1}
       answer={questions[currentQuestionIndex].choices[1]}
-      checkIcon={icon === null ? null : icon === 1}
+      isCorrect={ questions[currentQuestionIndex].correctAnswerIndex === 1 }
       onPress={() => handleAnswerPress(1)}
+      resetState={resetStateInAnswerCards} 
     />
 
     <AnswerCard
       key={2}
       answer={questions[currentQuestionIndex].choices[2]}
-      checkIcon={icon === null ? null : icon === 2}
+      isCorrect={ questions[currentQuestionIndex].correctAnswerIndex === 2 }
       onPress={() => handleAnswerPress(2)}
+      resetState={resetStateInAnswerCards} 
     />
 
     <AnswerCard
       key={3}
       answer={questions[currentQuestionIndex].choices[3]}
-      checkIcon={icon === null ? null : icon === 3}
+      isCorrect={ questions[currentQuestionIndex].correctAnswerIndex === 3 }
       onPress={() => handleAnswerPress(3)}
-    />
+      resetState={resetStateInAnswerCards} 
+    /> */}
         
 
-        {/* {questions[currentQuestionIndex].choices.map((choice, index) => (
+        {questions[currentQuestionIndex].choices.map((choice, index) => (
           <AnswerCard
               key={index}
               answer={choice}
-              checkIcon={index === currentQuestionIndex ? true : false}
+              isCorrect={ questions[currentQuestionIndex].correctAnswerIndex === index }
               onPress={() => handleAnswerPress(index)}
+              resetState={resetStateInAnswerCards} 
           />
-        ))} */}
+        ))}
 
       <TouchableOpacity
         style={styles.button}

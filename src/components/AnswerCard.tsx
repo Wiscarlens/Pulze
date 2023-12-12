@@ -1,22 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity  } from 'react-native';
 import CheckIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 interface AnswerCardProps {
-  key: number;
   answer: string;
-  checkIcon?: boolean | null;
+  isCorrect?: boolean;
   onPress?: () => void;
+  resetState?: () => void;
 }
 
-const AnswerCard: React.FC<AnswerCardProps> = ({ key, answer, checkIcon, onPress }) => {
-  // const [checkIcon, setCheckAnswer] = useState<boolean | null>(null);
+const AnswerCard: React.FC<AnswerCardProps> = ({ answer, isCorrect, onPress, resetState }) => {
+  const [checkIcon, setCheckAnswer] = useState<boolean | null>(null);
 
+  useEffect(() => {
+    // Reset the state to null when resetState prop changes
+    setCheckAnswer(null);
+  }, [resetState]);
 
   const handlePress = () => {
     if (onPress) {
       
       onPress();
+      setCheckAnswer(isCorrect !== undefined ? isCorrect : null); 
 
     }
   };
