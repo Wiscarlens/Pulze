@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-// import { useNavigation } from '@react-navigation/native';
+
 
 import QuestionCard from '../components/QuestionCard';
 import AnswerCard from '../components/AnswerCard';
