@@ -14,7 +14,17 @@ const App = () => {
       <NavigationContainer>
         {/* <LoginScreen/>
         <WelcomeScreen/> */}
-        <QuizScreen/>
+        {/* <QuizScreen/> */}
+
+
+         <LoginScreen/>
+
+      {/* <WelcomeScreen/> */}
+
+      {/* <QuizScreen/> */}
+      
+
+
     </NavigationContainer>
       
 
