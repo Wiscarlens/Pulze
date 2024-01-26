@@ -1,21 +1,23 @@
 import React from 'react';
-import { View, Text, Image, ImageSourcePropType, StyleSheet } from 'react-native';
+import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { ImageSourcePropType } from 'react-native';
 
 interface SquareCardProps {
   imageSource: ImageSourcePropType;
   title: string;
   subtitle: string;
+  onPress?: () => void;
 }
 
-const SquareCard: React.FC<SquareCardProps> = ({ imageSource, title, subtitle }) => {
+const SquareCard: React.FC<SquareCardProps> = ({ imageSource, title, subtitle, onPress }) => {
   return (
-    <View style={styles.card}>
+    <TouchableOpacity style={styles.card}  onPress={onPress}>
       <Image source={imageSource} style={styles.cardImage} />
       <View style={styles.cardContent}>
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.subtitle}>{subtitle}</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

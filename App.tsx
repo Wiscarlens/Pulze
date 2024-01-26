@@ -9,26 +9,23 @@ import QuizScreen from './src/screens/QuizScreen';
 
 const { Navigator, Screen } = createStackNavigator();
 
+export type RootStackParamList = {
+  Welcome: undefined;
+  Quiz: undefined;
+  Login: undefined;
+};
+
 const App = () => {
   
   return (
     <SafeAreaView style={styles.container}>
       <NavigationContainer>
         <Navigator>
-          <Screen name="Login" component={LoginScreen} />
           <Screen name="Welcome" component={WelcomeScreen} />
           <Screen name="Quiz" component={QuizScreen} />
-
+          <Screen name="Login" component={LoginScreen} />
         </Navigator>
-
-
-        {/* <LoginScreen/>} */}
-        {/* <WelcomeScreen/>  */}
-        {/* <QuizScreen/> */}
-
-
       </NavigationContainer>
-      
     </SafeAreaView>
   );
 };
@@ -38,8 +35,6 @@ const styles = StyleSheet.create({
     flex: 1
   }
 });
-
-
 
 export default App;
 

@@ -1,9 +1,19 @@
 import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet, ScrollView } from 'react-native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../../App';
+
+
 import SquareCard from '../components/SquareCard';
 import ReactangleCard from '../components/RectangleCard';
 
-const Welcome = () => {
+type WelcomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Welcome'>;
+
+type Props = {
+  navigation: WelcomeScreenNavigationProp;
+};
+
+const Welcome: React.FC<Props> = ({navigation}: Props) => {
   const [name, setName] = useState('Joe');
 
   const profileImage = require('../assets/profile.png');
@@ -44,42 +54,49 @@ const Welcome = () => {
             imageSource={require('../assets/mergin_traffic.png')}
             title="Road Sign"
             subtitle="10 Questions"
+            onPress={() => navigation.navigate('Quiz')}
           />
 
           <SquareCard
             imageSource={require('../assets/stop_sign.png')}
             title="Traffic Signal"
             subtitle="20 Questions"
+            onPress={() => navigation.navigate('Quiz')}
           />
 
           <SquareCard
             imageSource={require('../assets/divided_highway.jpg')}
             title="Pavement Markings"
             subtitle="50 Questions"
+            onPress={() => navigation.navigate('Quiz')}
           />
 
           <SquareCard
             imageSource={require('../assets/right_of_way.png')}
             title="Right-of-way rules"
             subtitle="50 Questions"
+            onPress={() => navigation.navigate('Quiz')}
           />
 
           <SquareCard
             imageSource={require('../assets/driving-In-Bad-Weather.jpg')}
             title="Safe Driving Practices"
             subtitle="50 Questions"
+            onPress={() => navigation.navigate('Quiz')}
           />
 
           <SquareCard
             imageSource={require('../assets/hazard.webp')}
             title="Hazards"
             subtitle="50 Questions"
+            onPress={() => navigation.navigate('Quiz')}
           />
 
           <SquareCard
             imageSource={require('../assets/situational_awareness.jpeg')}
             title="Situational Awareness"
             subtitle="50 Questions"
+            onPress={() => navigation.navigate('Quiz')}
           />
           </View>
         </ScrollView>
