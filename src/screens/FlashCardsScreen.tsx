@@ -16,10 +16,10 @@ import { useTranslation } from 'react-i18next';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useFocusEffect } from '@react-navigation/native';
-import { RootStackParamList } from '../navigation/types';
-import { colors, spacing, borderRadius, shadow } from '../constants/theme';
+import { RootStackParamList } from '@/navigation/types';
+import { colors, spacing, borderRadius, shadow } from '@/constants';
 import { storageService, MissedQuestion } from '../services/storage';
-import { getQuestionById, Question, getRandomQuestions } from '../data/questions';
+import { getQuestionById, Question, getRandomQuestions } from '@/data';
 
 const { width } = Dimensions.get('window');
 
@@ -44,7 +44,7 @@ const FlashCardsScreen: React.FC<Props> = ({ navigation }) => {
   useFocusEffect(
     useCallback(() => {
       loadCards();
-    }, [])
+    }, []),
   );
 
   const loadCards = async () => {
@@ -104,13 +104,13 @@ const FlashCardsScreen: React.FC<Props> = ({ navigation }) => {
 
     await storageService.updateCategoryProgress(
       currentCard.question.categoryId,
-      isCorrect
+      isCorrect,
     );
 
     if (!isCorrect) {
       await storageService.addMissedQuestion(
         currentCard.question.id,
-        currentCard.question.categoryId
+        currentCard.question.categoryId,
       );
     } else if (currentCard.missedInfo) {
       await storageService.markMissedQuestionCorrect(currentCard.question.id);
@@ -153,8 +153,7 @@ const FlashCardsScreen: React.FC<Props> = ({ navigation }) => {
         <View style={styles.header}>
           <TouchableOpacity
             style={styles.backButton}
-            onPress={() => navigation.goBack()}
-          >
+            onPress={() => navigation.goBack()}>
             <Icon name="arrow-left" size={24} color={colors.darkText} />
           </TouchableOpacity>
           <Text style={styles.title}>Flash Cards</Text>
@@ -176,13 +175,14 @@ const FlashCardsScreen: React.FC<Props> = ({ navigation }) => {
       <View style={styles.header}>
         <TouchableOpacity
           style={styles.backButton}
-          onPress={() => navigation.goBack()}
-        >
+          onPress={() => navigation.goBack()}>
           <Icon name="close" size={24} color={colors.darkText} />
         </TouchableOpacity>
         <View style={styles.progressContainer}>
           <View style={styles.progressBar}>
-            <View style={[styles.progressFill, { width: `${progress * 100}%` }]} />
+            <View
+              style={[styles.progressFill, { width: `${progress * 100}%` }]}
+            />
           </View>
           <Text style={styles.progressText}>
             {currentIndex + 1}/{cards.length}
@@ -195,64 +195,28 @@ const FlashCardsScreen: React.FC<Props> = ({ navigation }) => {
         <TouchableOpacity
           activeOpacity={0.9}
           onPress={selectedAnswer === null ? flipCard : undefined}
-          style={styles.cardTouchable}
-        >
+          style={styles.cardTouchable}>
           {/* Front of card - Question */}
-          <Animated.View style={[styles.card, styles.cardFront, frontAnimatedStyle]}>
+          <Animated.View
+            style={[styles.card, styles.cardFront, frontAnimatedStyle]}>
             <Text style={styles.cardLabel}>Question</Text>
             <Text style={styles.cardQuestion}>{currentCard.question.text}</Text>
             <Text style={styles.tapHint}>Tap to reveal answer</Text>
           </Animated.View>
 
           {/* Back of card - Answer */}
-          <Animated.View style={[styles.card, styles.cardBack, backAnimatedStyle]}>
+          <Animated.View
+            style={[styles.card, styles.cardBack, backAnimatedStyle]}>
             <Text style={styles.cardLabel}>Answer</Text>
             <Text style={styles.cardAnswer}>
               {currentCard.question.options[currentCard.question.correctIndex]}
             </Text>
-            <Text style={styles.explanation}>{currentCard.question.explanation}</Text>
+            <Text style={styles.explanation}>
+              {currentCard.question.explanation}
+            </Text>
           </Animated.View>
         </TouchableOpacity>
       </View>
-
-      {/* Answer Options */}
-      {!isFlipped && (
-        <View style={styles.answersContainer}>
-          <Text style={styles.answersLabel}>Select your answer:</Text>
-          {currentCard.question.options.map((option, index) => (
-            <TouchableOpacity
-              key={index}
-              style={[
-                styles.answerOption,
-                selectedAnswer === index &&
-                  (index === currentCard.question.correctIndex
-                    ? styles.answerCorrect
-                    : styles.answerIncorrect),
-                selectedAnswer !== null &&
-                  index === currentCard.question.correctIndex &&
-                  styles.answerCorrect,
-              ]}
-              onPress={() => handleSelectAnswer(index)}
-              disabled={selectedAnswer !== null}
-            >
-              <Text
-                style={[
-                  styles.answerText,
-                  selectedAnswer !== null &&
-                    index === currentCard.question.correctIndex &&
-                    styles.answerTextCorrect,
-                  selectedAnswer === index &&
-                    index !== currentCard.question.correctIndex &&
-                    styles.answerTextIncorrect,
-                ]}
-                numberOfLines={2}
-              >
-                {option}
-              </Text>
-            </TouchableOpacity>
-          ))}
-        </View>
-      )}
 
       {/* Footer */}
       {(isFlipped || selectedAnswer !== null) && (

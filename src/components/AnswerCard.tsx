@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity  } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import CheckIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 interface AnswerCardProps {
@@ -9,7 +9,12 @@ interface AnswerCardProps {
   resetState?: () => void;
 }
 
-const AnswerCard: React.FC<AnswerCardProps> = ({ answer, isCorrect, onPress, resetState }) => {
+const AnswerCard: React.FC<AnswerCardProps> = ({
+  answer,
+  isCorrect,
+  onPress,
+  resetState,
+}) => {
   const [checkIcon, setCheckAnswer] = useState<boolean | null>(null);
 
   useEffect(() => {
@@ -19,25 +24,31 @@ const AnswerCard: React.FC<AnswerCardProps> = ({ answer, isCorrect, onPress, res
 
   const handlePress = () => {
     if (onPress) {
-      
       onPress();
-      setCheckAnswer(isCorrect !== undefined ? isCorrect : null); 
-
+      setCheckAnswer(isCorrect !== undefined ? isCorrect : null);
     }
   };
 
   return (
-    <TouchableOpacity onPress={handlePress}
+    <TouchableOpacity
+      onPress={handlePress}
       style={[
         styles.card,
         {
           borderColor:
-            checkIcon === true ? '#3eb8d4' : checkIcon === false ? 'red' : '#F0F0F0', // Dynamic border color
+            checkIcon === true
+              ? '#3eb8d4'
+              : checkIcon === false
+              ? 'red'
+              : '#F0F0F0', // Dynamic border color
           backgroundColor:
-            checkIcon === true ? '#dcf8ff' : checkIcon === false ? 'mistyrose' : 'white', // Dynamic background color
+            checkIcon === true
+              ? '#dcf8ff'
+              : checkIcon === false
+              ? 'mistyrose'
+              : 'white', // Dynamic background color
         },
-      ]}
-    >
+      ]}>
       <View style={styles.textContainer}>
         <Text
           style={[
@@ -50,8 +61,7 @@ const AnswerCard: React.FC<AnswerCardProps> = ({ answer, isCorrect, onPress, res
                   ? 'red' // Dynamic text color when boolean is false
                   : 'gray', // Default text color when checkIcon is null or undefined
             },
-          ]}
-        >
+          ]}>
           {answer}
         </Text>
       </View>
@@ -73,7 +83,6 @@ const AnswerCard: React.FC<AnswerCardProps> = ({ answer, isCorrect, onPress, res
                 : checkIcon === false
                 ? 'red' // red when boolean is false
                 : '#F0F0F0' // Default to 'gray' if checkIcon is null or undefined
-                
             }
           />
         </View>
