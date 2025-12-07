@@ -12,7 +12,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import './src/locales';
 
 // Types
-import { RootStackParamList } from './src/navigation/types';
+import { RootStackParamList } from '@/navigation/types';
 
 // Services
 import { storageService } from './src/services/storage';
@@ -39,13 +39,15 @@ import {
 } from './src/screens';
 
 // Theme
-import { colors } from './src/constants/theme';
+import { colors } from '@/constants';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
 const App = () => {
   const [showSplash, setShowSplash] = useState(true);
-  const [isOnboardingComplete, setIsOnboardingComplete] = useState<boolean | null>(null);
+  const [isOnboardingComplete, setIsOnboardingComplete] = useState<
+    boolean | null
+  >(null);
 
   useEffect(() => {
     checkOnboardingStatus();
@@ -83,11 +85,13 @@ const App = () => {
           screenOptions={{
             headerShown: false,
             cardStyle: { backgroundColor: colors.white },
-          }}
-        >
+          }}>
           {/* Onboarding Flow */}
           <Stack.Screen name="Onboarding" component={OnboardingScreen} />
-          <Stack.Screen name="LanguageSelect" component={LanguageSelectScreen} />
+          <Stack.Screen
+            name="LanguageSelect"
+            component={LanguageSelectScreen}
+          />
           <Stack.Screen name="StateSelect" component={StateSelectScreen} />
           <Stack.Screen name="NameEntry" component={NameEntryScreen} />
           <Stack.Screen name="LicenseSelect" component={LicenseSelectScreen} />
@@ -95,7 +99,10 @@ const App = () => {
           {/* Main App Screens */}
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="StudyMode" component={StudyModeScreen} />
-          <Stack.Screen name="PracticeTestIntro" component={PracticeTestIntroScreen} />
+          <Stack.Screen
+            name="PracticeTestIntro"
+            component={PracticeTestIntroScreen}
+          />
           <Stack.Screen name="PracticeTest" component={PracticeTestScreen} />
           <Stack.Screen name="TestResults" component={TestResultsScreen} />
           <Stack.Screen name="RoadSigns" component={RoadSignsScreen} />
@@ -103,7 +110,10 @@ const App = () => {
           <Stack.Screen name="Profile" component={ProfileScreen} />
           <Stack.Screen name="Bookmarks" component={BookmarksScreen} />
           <Stack.Screen name="FlashCards" component={FlashCardsScreen} />
-          <Stack.Screen name="MissedQuestions" component={MissedQuestionsScreen} />
+          <Stack.Screen
+            name="MissedQuestions"
+            component={MissedQuestionsScreen}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaView>
